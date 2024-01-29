@@ -1,0 +1,47 @@
+[gd_scene load_steps=4 format=3 uid="uid://cvqa0aqqxet5o"]
+
+[ext_resource type="Texture2D" uid="uid://qqlha8g30la7" path="res://assets/arcs1.png" id="1_bwxue"]
+[ext_resource type="Texture2D" uid="uid://be167erc0badp" path="res://assets/arcs2.png" id="2_si8dd"]
+
+[sub_resource type="GDScript" id="GDScript_x2ojy"]
+script/source = "extends Node2D
+
+@onready var arcs_bg = $Bg
+@onready var arcs_fg = $Fg
+
+var offsB = 0
+var offsF = 0
+
+var reversed = false
+
+const SCROLL_SPEED:float = 20
+
+func _process(delta):
+	print(get_viewport())
+	var shift:float = delta * SCROLL_SPEED
+	if reversed:
+		shift = -shift
+
+	arcs_bg.region_rect.position.y += shift
+	arcs_fg.region_rect.position.y += shift * 2
+
+	offsB = arcs_bg.region_rect.position.y
+	offsF = arcs_fg.region_rect.position.y
+"
+
+[node name="Archs" type="Node2D"]
+script = SubResource("GDScript_x2ojy")
+
+[node name="Bg" type="Sprite2D" parent="."]
+texture_repeat = 2
+texture = ExtResource("1_bwxue")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 720, 405)
+
+[node name="Fg" type="Sprite2D" parent="."]
+texture_repeat = 2
+texture = ExtResource("2_si8dd")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 720, 405)
