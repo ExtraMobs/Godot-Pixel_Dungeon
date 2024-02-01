@@ -63,20 +63,15 @@ public partial class PixelScene : Node2D
         MaxZoom = DefaultZoom * 2;
 
         // Não vale a pena fazer a classe 'PixelCamera' só pra isso
+        double x =
+            viewportRect.Size.X - Math.Ceiling(viewportRect.Size.X / DefaultZoom) * DefaultZoom / 2;
+        double y =
+            viewportRect.Size.Y - Math.Ceiling(viewportRect.Size.Y / DefaultZoom) * DefaultZoom / 2;
         Camera.Reset(
             new Camera()
             {
                 Zoom = new Vector2(DefaultZoom, DefaultZoom),
-                Position = new Vector2(
-                    (int)(
-                        viewportRect.Size.X
-                        - Math.Ceiling(viewportRect.Size.X / DefaultZoom) * DefaultZoom
-                    ) / 2,
-                    (int)(
-                        viewportRect.Size.Y
-                        - Math.Ceiling(viewportRect.Size.Y / DefaultZoom) * DefaultZoom
-                    ) / 2
-                )
+                Position = new Vector2((int)x, (int)y)
             }
         );
 
