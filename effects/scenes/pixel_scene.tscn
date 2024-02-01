@@ -1,6 +1,0 @@
-[gd_scene format=3 uid="uid://bncpoch4bmex7"]
-
-[node name="PixelScene" type="Node2D"]
-
-[node name="Camera" type="Camera2D" parent="."]
-anchor_mode = 0

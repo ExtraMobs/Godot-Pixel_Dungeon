@@ -1,7 +1,8 @@
 using System;
 using Godot;
 
-public partial class pixel_scene : Node2D
+[GlobalClass]
+public partial class PixelScene : Node2D
 {
 
 	// Tamanho virtual mínimo para a orientação Portrato
