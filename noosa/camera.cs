@@ -1,5 +1,5 @@
-using Godot;
 using System.Collections.Generic;
+using Godot;
 
 public partial class Camera : Camera2D
 {
@@ -9,10 +9,10 @@ public partial class Camera : Camera2D
     private static Camera _main;
     public static Camera Main
     {
-        get{return _main;}
+        get { return _main; }
         set
         {
-            foreach(Node child in PixelScene.GetChildren())
+            foreach (Node child in PixelScene.GetChildren())
             {
                 if (child.Name == "Camera")
                 {
@@ -43,7 +43,7 @@ public partial class Camera : Camera2D
             camera.QueueFree();
         }
         All.Clear();
-        
+
         return Main = Add(newCamera);
     }
 
@@ -55,10 +55,6 @@ public partial class Camera : Camera2D
 
     public static Camera CreateFullscreen(float zoom)
     {
-        return new Camera()
-        {
-            Zoom = new Vector2(zoom, zoom)
-        };
+        return new Camera() { Zoom = new Vector2(zoom, zoom) };
     }
-
 }

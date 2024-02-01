@@ -2,53 +2,45 @@ using Godot;
 
 public partial class archs : Node2D
 {
-	Sprite2D ArcsBg;
-	Sprite2D ArcsFg;
-	
-	float OffsB;
-	float OffsF;
+    Sprite2D ArcsBg;
+    Sprite2D ArcsFg;
 
-	bool reversed = false;
+    float OffsB;
+    float OffsF;
 
-	const float ScrollSpeed = 20;
-	
-	public override void _Ready()
-	{
-		ArcsBg = GetNode<Sprite2D>("Bg");
-		ArcsFg = GetNode<Sprite2D>("Fg");
-	}
+    bool reversed = false;
 
-	public override void _Process(double delta)
-	{
-		float shift = (float)(delta * ScrollSpeed);
+    const float ScrollSpeed = 20;
 
-		if (reversed)
-		{
-			shift = -shift;
-		}
+    public override void _Ready()
+    {
+        ArcsBg = GetNode<Sprite2D>("Bg");
+        ArcsFg = GetNode<Sprite2D>("Fg");
+    }
 
-		// O projeto não deixou eu alterar o atributo
-		// 'RegionRect.Position.Y' diretamente,
-		// então tive que enviar um NOVO objeto de Rect2
-		// com o Y atualizado.
-		ArcsBg.RegionRect = new Rect2(
-			new Vector2(
-				ArcsBg.RegionRect.Position.X,
-				ArcsFg.RegionRect.Position.Y +
-				shift
-			),
-			ArcsBg.RegionRect.Size
-		);
-		ArcsFg.RegionRect = new Rect2(
-			new Vector2(
-				ArcsFg.RegionRect.Position.X,
-				ArcsFg.RegionRect.Position.Y +
-				shift * 2
-			),
-			ArcsBg.RegionRect.Size
-		);
+    public override void _Process(double delta)
+    {
+        float shift = (float)(delta * ScrollSpeed);
 
-		OffsB = ArcsFg.RegionRect.Position.Y;
-		OffsF = ArcsFg.RegionRect.Position.Y;
-	}
+        if (reversed)
+        {
+            shift = -shift;
+        }
+
+        // O projeto não deixou eu alterar o atributo
+        // 'RegionRect.Position.Y' diretamente,
+        // então tive que enviar um NOVO objeto de Rect2
+        // com o Y atualizado.
+        ArcsBg.RegionRect = new Rect2(
+            new Vector2(ArcsBg.RegionRect.Position.X, ArcsFg.RegionRect.Position.Y + shift),
+            ArcsBg.RegionRect.Size
+        );
+        ArcsFg.RegionRect = new Rect2(
+            new Vector2(ArcsFg.RegionRect.Position.X, ArcsFg.RegionRect.Position.Y + shift * 2),
+            ArcsBg.RegionRect.Size
+        );
+
+        OffsB = ArcsFg.RegionRect.Position.Y;
+        OffsF = ArcsFg.RegionRect.Position.Y;
+    }
 }
