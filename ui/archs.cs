@@ -27,8 +27,10 @@ public partial class archs : Node2D
 			shift = -shift;
 		}
 
-		// Não deixou eu alterar o atributo 'RegionRect.Position.Y' diretamente,
-		// então tive que enviar um NOVO objeto de Rect2 com o Y atualizado.
+		// O projeto não deixou eu alterar o atributo
+		// 'RegionRect.Position.Y' diretamente,
+		// então tive que enviar um NOVO objeto de Rect2
+		// com o Y atualizado.
 		ArcsBg.RegionRect = new Rect2(
 			new Vector2(
 				ArcsBg.RegionRect.Position.X,

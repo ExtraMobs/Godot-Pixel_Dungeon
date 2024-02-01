@@ -4,17 +4,26 @@ using Godot;
 public partial class pixel_scene : Node2D
 {
 
-	float MinWidthP = 128;
-	float MinHeightP = 224;
-	float MinWidthL = 224;
-	float MinHeightL = 160;
-	float DefaultZoom;
-	float MinZoom;
-	float MaxZoom;
+	// Tamanho virtual mínimo para a orientação Portrato
+	public static float MinWidthP = 128;
+	public static float MinHeightP = 224;
 
-	// Called when the node enters the scene tree for the first time.
+	// amanho virtual mínimo para a orientação Paisagem
+	public static float MinWidthL = 224;
+	public static float MinHeightL = 160;
+
+	public static float DefaultZoom;
+	public static float MinZoom;
+	public static float MaxZoom;
+
+	public static Camera UiCamera;
+
+	// TODO BitmapText.Font
+
 	public override void _Ready()
 	{
+		Camera.PixelScene = this;
+
 		float minWidth;
 		float minHeight;
 
@@ -29,7 +38,9 @@ public partial class pixel_scene : Node2D
 
 		DefaultZoom = (float)Math.Ceiling(DisplayServer.ScreenGetDpi() * 2.5);
 
-		Vector2 windowRes = GetViewportRect().Size;
+		Rect2 viewportRect = GetViewportRect();
+
+		Vector2 windowRes = viewportRect.Size;
 		while((
 			windowRes.X / DefaultZoom < minWidth ||
 			windowRes.Y / DefaultZoom < minHeight
@@ -49,13 +60,21 @@ public partial class pixel_scene : Node2D
 		MinZoom = 1;
 		MaxZoom = DefaultZoom * 2;
 
-		Camera2D camera = GetNode<Camera2D>("Camera");
+		// Não vale a pena fazer a classe 'PixelCamera' só pra isso
+		Camera.Reset(new Camera()
+		{
+			Zoom = new Vector2(DefaultZoom, DefaultZoom),
+			Position = new Vector2(
+				(int)(viewportRect.Size.X - Math.Ceiling(viewportRect.Size.X / DefaultZoom) * DefaultZoom) / 2, 
+				(int)(viewportRect.Size.Y - Math.Ceiling(viewportRect.Size.Y / DefaultZoom) * DefaultZoom) / 2 
+			)
+		});
 
-		camera.Zoom = new Vector2(DefaultZoom, DefaultZoom);
+		float uiZoom = DefaultZoom;
+		UiCamera = Camera.CreateFullscreen(uiZoom);
+		Camera.Add(UiCamera);
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	// public override void _Process(double delta)
-	// {
-	// }
 }
+
+
